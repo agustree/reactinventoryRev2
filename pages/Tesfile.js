@@ -4,6 +4,7 @@ const api = axios.create({
     baseURL: 'http://localhost:5000'
   })
 const Tesfile = (props) => {
+<<<<<<< HEAD
 
 	const[akses,setakses]=useState('');
 
@@ -26,21 +27,41 @@ const Tesfile = (props) => {
 			akses : aksesnya  
         }       
           const response = await api.post('/staffinput', request)
+=======
+    const submitButton = async (e) => {
+        
+        e.preventDefault()   
+        if (form.nama === '' || form.address === '' || form.telp ==='') {
+          alert('Please fill all the fields')
+        }
+        else {        
+        const request = {
+            nama : form.nama,  
+            address: form.address,
+            telp : form.telp     
+        }       
+          const response = await api.post('/tesinput1', request)
+>>>>>>> 2922b3bbe4615453386189b49450e86419021f15
           console.log(response)           
         }   
       }
 
       const [form, setform] = useState({
+<<<<<<< HEAD
         nama: '',
 		address :'',
 		telp : '',
 		username :'',
 		pass : ''
+=======
+        nama: ''        
+>>>>>>> 2922b3bbe4615453386189b49450e86419021f15
       })
       const inputHandler = (e) => {
         setform({ ...form, [e.target.name]: e.target.value })   
        }
 
+<<<<<<< HEAD
 	   const tescek=(e)=>{
 		var value = e.target.value;
 		alert(value);
@@ -51,6 +72,8 @@ const Tesfile = (props) => {
 	   }
 
 
+=======
+>>>>>>> 2922b3bbe4615453386189b49450e86419021f15
     return(
         <div>
 		      <div className="content-wrapper">
@@ -118,24 +141,40 @@ const Tesfile = (props) => {
 								<div className="form-group row">
 								<label htmlFor="inputPassword3" className="col-sm-3 col-form-label">Username</label>
 								<div className="col-sm-9">
+<<<<<<< HEAD
 									<input type="text" className="form-control form-control-sm" id="inputPassword3" name='username' value={form.username} onChange={inputHandler} placeholder="Username" />
+=======
+									<input type="text" className="form-control form-control-sm" id="inputPassword3" placeholder="Username" />
+>>>>>>> 2922b3bbe4615453386189b49450e86419021f15
 								</div>
 							</div>
 							<div className="form-group row">
 								<label htmlFor="inputPassword3" className="col-sm-3 col-form-label">Password</label>
 								<div className="col-sm-9">
+<<<<<<< HEAD
 									<input type="password" className="form-control form-control-sm" name='pass' value={form.pass} onChange={inputHandler}  id="inputPassword3" placeholder="Password" />
+=======
+									<input type="password" className="form-control form-control-sm" id="inputPassword3" placeholder="Password" />
+>>>>>>> 2922b3bbe4615453386189b49450e86419021f15
 								</div>
 							</div>
 							<div className="form-group row">
 							<label htmlFor="inputPassword3" className="col-sm-3 col-form-label">Akses</label>
 								<div>
 								<div className="custom-control custom-checkbox">
+<<<<<<< HEAD
 									<input className="custom-control-input" type="checkbox" name='cekA' value='1' onChange={inputHandler} id="customCheckbox1" defaultValue="option1" />
 									<label htmlFor="customCheckbox1" className="custom-control-label">Master Supplier</label>
 								</div>
 								<div className="custom-control custom-checkbox">
 									<input className="custom-control-input" type="checkbox" id="customCheckbox2" name='cekB' value='2' onChange={inputHandler} id="customCheckbox2" defaultValue="option2" />
+=======
+									<input className="custom-control-input" type="checkbox" id="customCheckbox1" defaultValue="option1" />
+									<label htmlFor="customCheckbox1" className="custom-control-label">Master Supplier</label>
+								</div>
+								<div className="custom-control custom-checkbox">
+									<input className="custom-control-input" type="checkbox" id="customCheckbox2" defaultValue="option1" />
+>>>>>>> 2922b3bbe4615453386189b49450e86419021f15
 									<label htmlFor="customCheckbox2" className="custom-control-label">Master Staff</label>
 								</div>
 								</div>
