@@ -14,15 +14,16 @@ const Tesfile = (props) => {
           alert('Please fill all the fields')
         }
         else {  
-			
+			let aksesnya=form.cekA+""+form.cekB;
 			
         const request = {
+			
             nama : form.nama,  
             address: form.address,
             telp : form.telp,
 			username : form.username,
 			password : form.pass,
-			akses : form.cekA     
+			akses : aksesnya  
         }       
           const response = await api.post('/staffinput', request)
           console.log(response)           
@@ -43,6 +44,10 @@ const Tesfile = (props) => {
 	   const tescek=(e)=>{
 		var value = e.target.value;
 		alert(value);
+	   }
+	   
+	   const resetform = (e) =>{
+		   
 	   }
 
 
@@ -130,7 +135,7 @@ const Tesfile = (props) => {
 									<label htmlFor="customCheckbox1" className="custom-control-label">Master Supplier</label>
 								</div>
 								<div className="custom-control custom-checkbox">
-									<input className="custom-control-input" type="checkbox" id="customCheckbox2" defaultValue="option1" />
+									<input className="custom-control-input" type="checkbox" id="customCheckbox2" name='cekB' value='2' onChange={inputHandler} id="customCheckbox2" defaultValue="option2" />
 									<label htmlFor="customCheckbox2" className="custom-control-label">Master Staff</label>
 								</div>
 								</div>
