@@ -7,7 +7,8 @@ import Dashboard from './Dashboard';
 import Regunit from './pages/Regunit';
 import Footer from './Footer';
 import Staffmaster from  './pages/Staffmaster';
-import Tesfile from './pages/Tesfile';
+
+import Masterstaff2 from './pages/Masterstaff2'
 
 function App() {
   return (
@@ -19,7 +20,7 @@ function App() {
 		<div>
 			<Switch>
 				<Route path='/Regunit' component={Regunit} />		
-				<Route path='/Staff' component={Tesfile} />	
+				<Route path='/Staff' component={Masterstaff2} />	
 			</Switch>
 		</div>
 	  { /* 
