@@ -20,7 +20,7 @@ const Masterstaff2 = (props) => {
          setTelp(value);		
        }
 
-       const getdata=(e) =>{
+       const  getdata=async() =>{
 		   const response = await axios.get('http://localhost:5000/getdatastaff');
            setDatastaff(response.data);
 	   }
@@ -193,11 +193,11 @@ const Masterstaff2 = (props) => {
                                         <th style={{width: 10}}>#</th>
                                         <th>Name</th>
                                         <th>Address</th>
-                                        <th style={{width: 40}}>Label</th>
+                                        <th style={{width: 40}}>Telp</th>
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr>
+                                {/*    <tr>
                                         <td>1.</td>
                                         <td>Update software</td>
                                         <td>
@@ -236,7 +236,7 @@ const Masterstaff2 = (props) => {
                                         </div>
                                         </td>
                                         <td><span className="badge bg-success">90%</span></td>
-                                    </tr>
+                                    </tr>*/}
                                     </tbody>
                                 </table>
                                 </div>
