@@ -4,6 +4,13 @@ const api = axios.create({
     baseURL: 'http://localhost:5000'
   })
 const Masterstaff2 = (props) => {
+	
+	  useEffect(() => {
+        getdata();
+		
+    }, []);
+	
+	const [dataStaff, setDatastaff] = useState([]);
  	const[Checkd,setcheckd]=useState(false);
     const[Checkd2,setcheckd2]=useState(false);
 	const [telp, setTelp] = useState();
@@ -13,6 +20,10 @@ const Masterstaff2 = (props) => {
          setTelp(value);		
        }
 
+       const getdata=(e) =>{
+		   const response = await axios.get('http://localhost:5000/getdatastaff');
+           setDatastaff(response.data);
+	   }
        const handlecheck = (e) =>{
 		   setcheckd(!Checkd);
 	   }
