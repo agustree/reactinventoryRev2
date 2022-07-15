@@ -1,5 +1,9 @@
 import React, { useState,useEffect } from 'react';
 import axios from 'axios';
+import Moment from 'react-moment';
+import { Link } from 'react-router-dom'; 
+import * as FaIcons from 'react-icons/fa';
+import { IconContext } from "react-icons";
 const api = axios.create({
     baseURL: 'http://localhost:5000'
   })
@@ -197,6 +201,32 @@ const Masterstaff2 = (props) => {
                                     </tr>
                                     </thead>
                                     <tbody>
+											{dataStaff.map((staff, index) =>(
+											<tr key={ staff.id }>
+												<td>{ index + 1 }</td>
+												<td>{ staff.nama }</td>
+												<td>{ staff.deskripsi }</td>
+												<td>{ staff.hargabeli }</td>				
+												<td><Moment format="YYYY-MM-DD">{ staff.tglbeli }</Moment></td>
+												<td>
+													<Link  to={{
+														pathname: "/Edit",
+														state: {id:staff.id}
+													}}>
+
+														<IconContext.Provider  value={{ color: "green",size:"2em", className: "global-class-name" }}>
+															<FaIcons.FaEdit />
+														</IconContext.Provider>
+												    </Link>
+													<Link to="/search">
+														<IconContext.Provider value={{ color: "red",size:"1.7em", className: "global-class-name" }}>
+															<FaIcons.FaTrashAlt />
+														</IconContext.Provider>									
+													</Link>
+
+												</td>
+											</tr>
+											))},
                                 {/*    <tr>
                                         <td>1.</td>
                                         <td>Update software</td>
