@@ -14,7 +14,7 @@ const Masterstaff2 = (props) => {
 		
     }, []);
 	
-	const [dataStaff, setDatastaff] = useState([]);
+	const[dataStaff, setDatastaff] = useState([]);
  	const[Checkd,setcheckd]=useState(false);
     const[Checkd2,setcheckd2]=useState(false);
 	const [telp, setTelp] = useState();
@@ -191,35 +191,36 @@ const Masterstaff2 = (props) => {
                                     </div>
 									<div className="col-md-5">
                                                                     <div className="card-body p-0">
-                                <table className="table table-sm">
+                                <table className="table table-sm" style={{textAlign:'center'}}>
                                     <thead>
                                     <tr>
                                         <th style={{width: 10}}>#</th>
                                         <th>Name</th>
                                         <th>Address</th>
                                         <th style={{width: 40}}>Telp</th>
+                                        <th>Action</th>
                                     </tr>
                                     </thead>
                                     <tbody>
 											{dataStaff.map((staff, index) =>(
-											<tr key={ staff.id }>
+											<tr key={ staff.staff_id }>
 												<td>{ index + 1 }</td>
-												<td>{ staff.nama }</td>
-												<td>{ staff.deskripsi }</td>
-												<td>{ staff.hargabeli }</td>				
-												<td><Moment format="YYYY-MM-DD">{ staff.tglbeli }</Moment></td>
+												<td>{ staff.name }</td>
+												<td>{ staff.address }</td>			
+                                                <td>{ staff.telp }</td>		
+												{/*<td><Moment format="YYYY-MM-DD">{ staff.tglbeli }</Moment></td>*/}
 												<td>
 													<Link  to={{
 														pathname: "/Edit",
 														state: {id:staff.id}
 													}}>
 
-														<IconContext.Provider  value={{ color: "green",size:"2em", className: "global-class-name" }}>
+														<IconContext.Provider  value={{ color: "green",size:"1.5em", className: "global-class-name" }}>
 															<FaIcons.FaEdit />
 														</IconContext.Provider>
 												    </Link>
 													<Link to="/search">
-														<IconContext.Provider value={{ color: "red",size:"1.7em", className: "global-class-name" }}>
+														<IconContext.Provider value={{ color: "red",size:"1.2em", className: "global-class-name" }}>
 															<FaIcons.FaTrashAlt />
 														</IconContext.Provider>									
 													</Link>
