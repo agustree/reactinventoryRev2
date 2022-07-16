@@ -22,13 +22,15 @@ const Masterstaff2 = (props) => {
       const inputHandler = (e) => {
 		 setform({ ...form, [e.target.name]: e.target.value })  
        }
-       
+     
 	    const inputhandlertelp=(e)=>{
 		 const value = e.target.value.replace(/\D/g, "");
          setTelp(value);
 		}
 	   
 	    let location = useLocation();
+
+      
 		
        const  getdata=async() =>{
 		   const response = await axios.get('http://localhost:5000/getdatastaff');
@@ -50,6 +52,7 @@ const Masterstaff2 = (props) => {
         nama: ''     
       })
 
+      const [stsButton,setStsbutton]=useState('Save');
       const submitButton = async (e) => {        
                 e.preventDefault()   
                 if (form.nama === '' || form.address === '' || form.username ==='' || form.pass==='' ) {
@@ -92,10 +95,46 @@ const Masterstaff2 = (props) => {
             }) 
           setTelp('');         
         }
-		
-		const editButton = (e) => {
-			  alert('Action EDIT')
+
+        const editData=async()=>{
+         alert("edit bro")
+        }
+        const[visbility,setVisbility]=useState('hidden'); 
+		const[editEvent,seteditEvent]=useState(false);            
+		const editButton =async(e) => {
+           
+            try{
+                const res = await axios.get(`http://localhost:5000/editStaff/${location.state.id}`);
+                setform({
+                    nama: res.data[0].name,
+                    address :res.data[0].address,          
+                    username :res.data[0].username,
+                    pass : res.data[0].password
+                    }) 
+                  setTelp(res.data[0].telp);  
+            }catch (error) {		
+                console.log(error);
+            }
+            seteditEvent(true);
+            setVisbility('visible');
+            setStsbutton('Edit');
+
 		}
+
+        const cancelEvent =(e)=>{
+            setform({
+                nama: '',
+                address :'',          
+                username :'',
+                pass : ''
+                }) 
+              setTelp('');       
+              seteditEvent(false);
+              setVisbility('hidden');
+              setStsbutton('Save');
+              setcheckd(false);
+			  setcheckd2(false);
+        }
 
     return(
         <div>
@@ -190,7 +229,8 @@ const Masterstaff2 = (props) => {
                                     </div>
                                 </div>	
                                 <div className="card-footer">
-                                    <button  onClick={submitButton} className="btn btn-primary">Submit</button>
+                                    <button  onClick={editEvent?editData:submitButton} className="btn btn-primary">{stsButton}</button>
+                                    <button onClick={cancelEvent} style={{marginLeft :'20px',visibility:visbility}}  className="btn btn-danger">Cancel</button>
                                 </div>
                     
                             </div>
@@ -217,7 +257,7 @@ const Masterstaff2 = (props) => {
 												{/*<td><Moment format="YYYY-MM-DD">{ staff.tglbeli }</Moment></td>*/}
 												<td>
 											
-												<Link  to={{
+												<Link onClick={editButton} to={{
 														pathname: "/Staff",
 														state: {id:staff.staff_id}
 													}}>
@@ -234,7 +274,7 @@ const Masterstaff2 = (props) => {
 
 												</td>
 											</tr>
-											))},
+											))}
                                 {/*    <tr>
                                         <td>1.</td>
                                         <td>Update software</td>
