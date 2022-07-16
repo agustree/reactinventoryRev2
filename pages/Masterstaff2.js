@@ -1,7 +1,8 @@
 import React, { useState,useEffect } from 'react';
 import axios from 'axios';
+import {Col,Row,Container,Table,Button,Form,FormGroup,ControlLabel,FormControl} from 'react-bootstrap';
 import Moment from 'react-moment';
-import { Link } from 'react-router-dom'; 
+import { Link,useLocation } from 'react-router-dom'; 
 import * as FaIcons from 'react-icons/fa';
 import { IconContext } from "react-icons";
 const api = axios.create({
@@ -19,11 +20,16 @@ const Masterstaff2 = (props) => {
     const[Checkd2,setcheckd2]=useState(false);
 	const [telp, setTelp] = useState();
       const inputHandler = (e) => {
-        setform({ ...form, [e.target.name]: e.target.value })   
-         const value = e.target.value.replace(/\D/g, "");
-         setTelp(value);		
+		 setform({ ...form, [e.target.name]: e.target.value })  
        }
-
+       
+	    const inputhandlertelp=(e)=>{
+		 const value = e.target.value.replace(/\D/g, "");
+         setTelp(value);
+		}
+	   
+	    let location = useLocation();
+		
        const  getdata=async() =>{
 		   const response = await axios.get('http://localhost:5000/getdatastaff');
            setDatastaff(response.data);
@@ -39,7 +45,6 @@ const Masterstaff2 = (props) => {
 
         nama: '',
 		address :'',
-		telp : '',
 		username :'',
 		pass : '',
         nama: ''     
@@ -47,7 +52,7 @@ const Masterstaff2 = (props) => {
 
       const submitButton = async (e) => {        
                 e.preventDefault()   
-                if (form.nama === '' || form.address === '' || form.telp === '' || form.username ==='' || form.pass==='') {
+                if (form.nama === '' || form.address === '' || form.username ==='' || form.pass==='' ) {
                 alert('Please fill all the fields')
                 }
                 else {  
@@ -59,12 +64,12 @@ const Masterstaff2 = (props) => {
 						aksesnya=aksesnya+form.cekB;
 					}
                    
-                    
+                   
                 const request = {
                     
                     nama : form.nama,  
                     address: form.address,
-                    telp : form.telp,
+                    telp : telp,
                     username : form.username,
                     password : form.pass,
                     akses : aksesnya  
@@ -74,22 +79,23 @@ const Masterstaff2 = (props) => {
                 resetform();
 				setcheckd(false);
 				setcheckd2(false);
+				getdata();
             }
         }
 
         const resetform = (e) => {
             setform({
             nama: '',
-            address :'',
-            telp : '',
+            address :'',          
             username :'',
             pass : ''
-            
-
             }) 
-
-         
+          setTelp('');         
         }
+		
+		const editButton = (e) => {
+			  alert('Action EDIT')
+		}
 
     return(
         <div>
@@ -148,7 +154,7 @@ const Masterstaff2 = (props) => {
                                     <div className="form-group row">
                                         <label htmlFor="inputPassword3" className="col-sm-3 col-form-label">Telp</label>
                                         <div className="col-sm-9">
-                                        <input type="text" pattern="[0-9]*"  maxLength="12" className="form-control form-control-sm" name='telp'  id="inputPassword3" value={telp} onChange={inputHandler} placeholder="Telp" />
+                                        <input type="text" pattern="[0-9]*"  maxLength="12" className="form-control form-control-sm" name='telp'  id="inputPassword3" value={telp} onChange={inputhandlertelp} placeholder="Telp" />
                                         </div>
                                     </div>
                                         <div className="form-group row">
@@ -190,7 +196,7 @@ const Masterstaff2 = (props) => {
                             </div>
                                     </div>
 									<div className="col-md-5">
-                                                                    <div className="card-body p-0">
+                                   <div className="card-body p-0">
                                 <table className="table table-sm" style={{textAlign:'center'}}>
                                     <thead>
                                     <tr>
@@ -205,20 +211,21 @@ const Masterstaff2 = (props) => {
 											{dataStaff.map((staff, index) =>(
 											<tr key={ staff.staff_id }>
 												<td>{ index + 1 }</td>
-												<td>{ staff.name }</td>
+												<td>{ staff.name}</td>
 												<td>{ staff.address }</td>			
                                                 <td>{ staff.telp }</td>		
 												{/*<td><Moment format="YYYY-MM-DD">{ staff.tglbeli }</Moment></td>*/}
 												<td>
-													<Link  to={{
-														pathname: "/Edit",
-														state: {id:staff.id}
+											
+												<Link  to={{
+														pathname: "/Staff",
+														state: {id:staff.staff_id}
 													}}>
 
 														<IconContext.Provider  value={{ color: "green",size:"1.5em", className: "global-class-name" }}>
 															<FaIcons.FaEdit />
 														</IconContext.Provider>
-												    </Link>
+												</Link>
 													<Link to="/search">
 														<IconContext.Provider value={{ color: "red",size:"1.2em", className: "global-class-name" }}>
 															<FaIcons.FaTrashAlt />
