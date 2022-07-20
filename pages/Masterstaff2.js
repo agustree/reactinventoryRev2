@@ -12,7 +12,7 @@ const Masterstaff2 = (props) => {
 	
 	  useEffect(() => {
         getdata();
-		
+	
     }, []);
 	
 	const[dataStaff, setDatastaff] = useState([]);
@@ -43,6 +43,7 @@ const Masterstaff2 = (props) => {
 	   const handlecheck2 = (e) =>{
 		   setcheckd2(!Checkd2);
 	   }
+	   
        const [form, setform] = useState({
 
         nama: '',
@@ -99,11 +100,13 @@ const Masterstaff2 = (props) => {
         const editData=async()=>{
          alert("edit bro")
         }
+		
+		
         const[visbility,setVisbility]=useState('hidden'); 
 		const[editEvent,seteditEvent]=useState(false);            
 		const editButton =async(e) => {
-           
-            try{
+              alert("edit bro"+location.state.id)
+		   {/*  try{
                 const res = await axios.get(`http://localhost:5000/editStaff/${location.state.id}`);
                 setform({
                     nama: res.data[0].name,
@@ -112,14 +115,24 @@ const Masterstaff2 = (props) => {
                     pass : res.data[0].password
                     }) 
                   setTelp(res.data[0].telp);  
-            }catch (error) {		
+				  }catch (error) {		
                 console.log(error);
             }
             seteditEvent(true);
             setVisbility('visible');
-            setStsbutton('Edit');
+		   setStsbutton('Edit');*/}
 
 		}
+const  getCheckById = async(checkID) =>{
+    const res = await  axios.get(`http://localhost:5000/editStaff/${checkID}`);
+                setform({
+                    nama: res.data[0].name,
+                    address :res.data[0].address,          
+                    username :res.data[0].username,
+                    pass : res.data[0].password
+                    }) 
+                  setTelp(res.data[0].telp);  
+}
 
         const cancelEvent =(e)=>{
             setform({
@@ -257,10 +270,7 @@ const Masterstaff2 = (props) => {
 												{/*<td><Moment format="YYYY-MM-DD">{ staff.tglbeli }</Moment></td>*/}
 												<td>
 											
-												<Link onClick={editButton} to={{
-														pathname: "/Staff",
-														state: {id:staff.staff_id}
-													}}>
+												<Link onClick={() => getCheckById(staff.staff_id)} >
 
 														<IconContext.Provider  value={{ color: "green",size:"1.5em", className: "global-class-name" }}>
 															<FaIcons.FaEdit />
