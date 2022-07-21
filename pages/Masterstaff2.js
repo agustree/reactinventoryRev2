@@ -131,7 +131,11 @@ const  getCheckById = async(checkID) =>{
                     username :res.data[0].username,
                     pass : res.data[0].password
                     }) 
-                  setTelp(res.data[0].telp);  
+                  setTelp(res.data[0].telp); 
+                  
+                  seteditEvent(true);
+                  setVisbility('visible');
+                 setStsbutton('Edit');
 }
 
         const cancelEvent =(e)=>{
