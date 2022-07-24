@@ -10,14 +10,23 @@ import Footer from './Footer';
 import Staffmaster from  './pages/Staffmaster';
 
 import Masterstaff2 from './pages/Masterstaff2';
-
+import useToken from './Components/useToken';
 import Login from './pages/Loginform';
-
+function setToken(userToken) {
+	sessionStorage.setItem('token', JSON.stringify(userToken));
+  }
+  
+  function getToken() {
+	const tokenString = sessionStorage.getItem('token');
+	const userToken = JSON.parse(tokenString);
+	return userToken?.token
+  }
 function App() {
-	const [token, setToken] = useState();
-	if(!token) {
+	const { token, setToken } = useToken();
+
+  if(!token) {
     return <Login setToken={setToken} />
-    }
+  }
   return (
         
 	<Router>
@@ -32,7 +41,7 @@ function App() {
 			</Switch>
 		</div>
 	   
-	   {/*<Footer/>*/}
+	
     </div>
 	 </Router>
   

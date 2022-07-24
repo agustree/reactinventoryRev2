@@ -1,10 +1,29 @@
 import React, { useState,useEffect } from 'react';
 import PropTypes from 'prop-types';
-Loginform.propTypes = {
-  setToken: PropTypes.func.isRequired
-}
-const Loginform = ({ setToken }) => {
+async function loginUser(credentials) {
+	return fetch('http://localhost:5000/login', {
+	  method: 'POST',
+	  headers: {
+		'Content-Type': 'application/json'
+	  },
+	  body: JSON.stringify(credentials)
+	})
+	  .then(data => data.json())
+   }
 
+
+const Loginform = ({ setToken }) => {
+	const [username, setUserName] = useState();
+	const [password, setPassword] = useState();
+  
+	const handleSubmit = async e => {
+		e.preventDefault();
+		const token = await loginUser({
+		  username,
+		  password
+		});
+		setToken(token);
+	  }
       return(
 	    <div className="hold-transition login-page">
 			<div className="login-box">
@@ -17,7 +36,7 @@ const Loginform = ({ setToken }) => {
 				  <p className="login-box-msg">Sign in to start your session</p>
 				  <form action="../../index3.html" method="post">
 					<div className="input-group mb-3">
-					  <input type="email" className="form-control" placeholder="Email" />
+					  <input type="text" className="form-control" onChange={e => setUserName(e.target.value)} placeholder="Username" />
 					  <div className="input-group-append">
 						<div className="input-group-text">
 						  <span className="fas fa-envelope" />
@@ -25,7 +44,7 @@ const Loginform = ({ setToken }) => {
 					  </div>
 					</div>
 					<div className="input-group mb-3">
-					  <input type="password" className="form-control" placeholder="Password" />
+					  <input type="password" className="form-control" onChange={e => setPassword(e.target.value)} placeholder="Password" />
 					  <div className="input-group-append">
 						<div className="input-group-text">
 						  <span className="fas fa-lock" />
@@ -43,7 +62,7 @@ const Loginform = ({ setToken }) => {
 					  </div>
 					  {/* /.col */}
 					  <div className="col-4">
-						<button type="submit" className="btn btn-primary btn-block">Sign In</button>
+						<button type="submit" onClick={handleSubmit} className="btn btn-primary btn-block">Sign In</button>
 					  </div>
 					  {/* /.col */}
 					</div>
@@ -73,3 +92,6 @@ const Loginform = ({ setToken }) => {
 	  )
 }
 export default Loginform;
+Loginform.propTypes = {
+	setToken: PropTypes.func.isRequired
+  };
