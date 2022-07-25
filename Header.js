@@ -2,6 +2,12 @@ import React, { Component } from 'react'
 
 export default class Header extends Component {
     render() {
+		const logout = () => {
+    localStorage.removeItem('token');
+	sessionStorage.removeItem('token');
+	localStorage.clear()
+     window.location.reload();
+  };
         return (
            <div>
   <nav className="main-header navbar navbar-expand navbar-white navbar-light">
@@ -115,9 +121,15 @@ export default class Header extends Component {
           <a href="#" className="dropdown-item dropdown-footer">See All Notifications</a>
         </div>
       </li>
-      <li className="nav-item">
+      {/* <li className="nav-item">
         <a className="nav-link" data-widget="control-sidebar" data-slide="true" href="#">
           <i className="fas fa-th-large" />
+        </a>
+      </li>*/}
+	  
+	  <li className="nav-item">
+        <a className="nav-link" onClick={logout} data-widget="control-sidebar" data-slide="true" href="#">
+          <i className="fas fa-sign-out-alt" />
         </a>
       </li>
     </ul>
