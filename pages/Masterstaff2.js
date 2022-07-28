@@ -1,7 +1,8 @@
 import React, { useState,useEffect } from 'react';
 import axios from 'axios';
-import {Col,Row,Container,Table,Button,Form,FormGroup,ControlLabel,FormControl} from 'react-bootstrap';
+import {Col,Row,Container,Table,Button,Form,FormGroup,ControlLabel,FormControl,Pagination } from 'react-bootstrap';
 import Moment from 'react-moment';
+
 import { Link,useLocation } from 'react-router-dom'; 
 import * as FaIcons from 'react-icons/fa';
 import { IconContext } from "react-icons";
@@ -9,7 +10,14 @@ const api = axios.create({
     baseURL: 'http://localhost:5000'
   })
 const Masterstaff2 = (props) => {
-	
+
+  const column=[
+  { 
+    dataField : "name",
+	text : "Name"
+  }
+  ]
+   
 	  useEffect(() => {
         getdata();
 	
@@ -101,6 +109,9 @@ const Masterstaff2 = (props) => {
          alert("edit bro")
         }
 		
+		 const {
+    cca2: code2 = '', region = null, name = {}
+  } = props.country || {};
 		
         const[visbility,setVisbility]=useState('hidden'); 
 		const[editEvent,seteditEvent]=useState(false);            
@@ -166,7 +177,7 @@ const  getCheckById = async(checkID) =>{
 					  </div>{/* /.col */}
 					</div>{/* /.row */}
 				  </div>{/* /.container-fluid */}
-				</div>
+		    </div>
 				{/* /.content-header */}
 				{/* Main content */}
                 <section className="content">
@@ -250,7 +261,31 @@ const  getCheckById = async(checkID) =>{
                                     </div>
 									<div className="col-md-5">
                                    <div className="card-body p-0">
-                                <table className="table table-sm" style={{textAlign:'center'}}>
+                                        
+                                   </div>
+
+									</div>
+                               </div>
+                            </div>
+                        </div>
+                    </div>
+					
+					
+					
+                </section>
+				
+				
+				
+				
+				 <section>
+                <div className="card">
+  <div className="card-header">
+    <h3 className="card-title">DataTable with default features</h3>
+  </div>
+  {/* /.card-header */}
+  <div className="card-body">
+    <table id="example1" className="table table-sm table-striped">
+    
                                     <thead>
                                     <tr>
                                         <th style={{width: 10}}>#</th>
@@ -272,7 +307,7 @@ const  getCheckById = async(checkID) =>{
 											
 												<Link onClick={() => getCheckById(staff.staff_id)} >
 
-														<IconContext.Provider  value={{ color: "green",size:"1.5em", className: "global-class-name" }}>
+														<IconContext.Provider  value={{ color: "green",style: { marginRight: "3px" },size:"1.3em", className: "global-class-name" }}>
 															<FaIcons.FaEdit />
 														</IconContext.Provider>
 												</Link>
@@ -285,55 +320,21 @@ const  getCheckById = async(checkID) =>{
 												</td>
 											</tr>
 											))}
-                                {/*    <tr>
-                                        <td>1.</td>
-                                        <td>Update software</td>
-                                        <td>
-                                        <div className="progress progress-xs">
-                                            <div className="progress-bar progress-bar-danger" style={{width: '55%'}} />
-                                        </div>
-                                        </td>
-                                        <td><span className="badge bg-danger">55%</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td>2.</td>
-                                        <td>Clean database</td>
-                                        <td>
-                                        <div className="progress progress-xs">
-                                            <div className="progress-bar bg-warning" style={{width: '70%'}} />
-                                        </div>
-                                        </td>
-                                        <td><span className="badge bg-warning">70%</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td>3.</td>
-                                        <td>Cron job running</td>
-                                        <td>
-                                        <div className="progress progress-xs progress-striped active">
-                                            <div className="progress-bar bg-primary" style={{width: '30%'}} />
-                                        </div>
-                                        </td>
-                                        <td><span className="badge bg-primary">30%</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td>4.</td>
-                                        <td>Fix and squish bugs</td>
-                                        <td>
-                                        <div className="progress progress-xs progress-striped active">
-                                            <div className="progress-bar bg-success" style={{width: '90%'}} />
-                                        </div>
-                                        </td>
-                                        <td><span className="badge bg-success">90%</span></td>
-                                    </tr>*/}
-                                    </tbody>
-                                </table>
-                                </div>
+      </tbody>
+      <tfoot>
+        <tr>
+            <th style={{width: 10}}>#</th>
+			<th>Name</th>
+			<th>Address</th>
+			<th style={{width: 40}}>Telp</th>
+			<th>Action</th>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+  {/* /.card-body */}
+</div>
 
-									</div>
-                               </div>
-                            </div>
-                        </div>
-                    </div>
                 </section>
             </div>
         </div>
