@@ -104,37 +104,37 @@ const Masterstaff2 = (props) => {
             }) 
           setTelp('');         
         }
+		
+		 const[idEdit,setidEdit]=useState(); 
 
         const editData=async()=>{
-         alert("edit bro")
+			
+			{/*const res = await axios.put(`http://localhost:5000/editstaffdata/${location.state.id}`); */}    
+              const res = await axios.put('http://localhost:5000/editstaffdata',{nama : form.nama,addres :form.address,tlp:telp,user:form.username,pass:form.pass, id : idEdit})
+		
+			  getdata();
+			   resetform();
+			      setTelp('');       
+              seteditEvent(false);
+              setVisbility('hidden');
+              setStsbutton('Save');
         }
 		
-		 const {
-    cca2: code2 = '', region = null, name = {}
-  } = props.country || {};
+	
 		
         const[visbility,setVisbility]=useState('hidden'); 
-		const[editEvent,seteditEvent]=useState(false);            
-		const editButton =async(e) => {
-              alert("edit bro"+location.state.id)
-		   {/*  try{
-                const res = await axios.get(`http://localhost:5000/editStaff/${location.state.id}`);
-                setform({
-                    nama: res.data[0].name,
-                    address :res.data[0].address,          
-                    username :res.data[0].username,
-                    pass : res.data[0].password
-                    }) 
-                  setTelp(res.data[0].telp);  
-				  }catch (error) {		
-                console.log(error);
-            }
-            seteditEvent(true);
-            setVisbility('visible');
-		   setStsbutton('Edit');*/}
-
-		}
+		const[editEvent,seteditEvent]=useState(false);    
+        
+	         	const editButton =async(e) => {
+					alert("tes edit");
+					{/*  const res = await axios.get(`http://localhost:5000/editstaffdata/${location.state.id}`);           
+					
+					console.log(error);*/}
+				}
+				
+				
 const  getCheckById = async(checkID) =>{
+	setidEdit(checkID);
     const res = await  axios.get(`http://localhost:5000/editStaff/${checkID}`);
                 setform({
                     nama: res.data[0].name,
@@ -143,6 +143,15 @@ const  getCheckById = async(checkID) =>{
                     pass : res.data[0].password
                     }) 
                   setTelp(res.data[0].telp);  
+				     seteditEvent(true);
+            setVisbility('visible');
+		   setStsbutton('Edit');
+}
+
+const deleteData = async(idstaff) => {
+	
+	const resp = await axios.delete(`http://localhost:5000/DELstaffdata/${idstaff}`);    
+	getdata();
 }
 
         const cancelEvent =(e)=>{
@@ -311,7 +320,7 @@ const  getCheckById = async(checkID) =>{
 															<FaIcons.FaEdit />
 														</IconContext.Provider>
 												</Link>
-													<Link to="/search">
+													<Link onClick={()=>deleteData(staff.staff_id)}>
 														<IconContext.Provider value={{ color: "red",size:"1.2em", className: "global-class-name" }}>
 															<FaIcons.FaTrashAlt />
 														</IconContext.Provider>									
